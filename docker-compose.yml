@@ -1,0 +1,89 @@
+version: "3.8"
+
+services:
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    container_name: "rabbitmq"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+  registration-service:
+    build: ./registration-service
+    container_name: registration-service
+    ports:
+      - "3001:3000"
+    depends_on:
+      - rabbitmq
+    environment:
+      - DATABASE_URL=postgres://your_db_user:your_db_password@db:5432/registration_db
+    networks:
+      - app-network
+
+  auth-service:
+    build: ./auth-service
+    container_name: auth-service
+    ports:
+      - "3002:3000"
+    depends_on:
+      - rabbitmq
+    environment:
+      - DATABASE_URL=postgres://your_db_user:your_db_password@db:5432/auth_db
+    networks:
+      - app-network
+
+  user-service:
+    build: ./user-service
+    container_name: user-service
+    ports:
+      - "3003:3000"
+    depends_on:
+      - rabbitmq
+    environment:
+      - DATABASE_URL=postgres://your_db_user:your_db_password@db:5432/user_db
+    networks:
+      - app-network
+
+  admin-service:
+    build: ./admin-service
+    container_name: admin-service
+    ports:
+      - "3004:3000"
+    depends_on:
+      - rabbitmq
+    environment:
+      - DATABASE_URL=postgres://your_db_user:your_db_password@db:5432/admin_db
+    networks:
+      - app-network
+
+  client-app:
+    build: ./client-app
+    container_name: client-app
+    ports:
+      - "3005:3000"
+    depends_on:
+      - registration-service
+      - auth-service
+      - user-service
+      - admin-service
+    networks:
+      - app-network
+
+  db:
+    image: postgres:13
+    container_name: db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: your_db_user
+      POSTGRES_PASSWORD: your_db_password
+      POSTGRES_DB: registration_db
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

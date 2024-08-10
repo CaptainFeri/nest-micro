@@ -1,0 +1,55 @@
+project-root/
+│
+├── registration-service/
+│   ├── src/
+│   │   ├── main.ts
+│   │   ├── registration.module.ts
+│   │   ├── registration.service.ts
+│   │   ├── user.entity.ts
+│   │   └── ormconfig.ts
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── Dockerfile
+│
+├── auth-service/
+│   ├── src/
+│   │   ├── main.ts
+│   │   ├── auth.module.ts
+│   │   ├── auth.service.ts
+│   │   ├── user.entity.ts
+│   │   └── ormconfig.ts
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── Dockerfile
+│
+├── user-service/
+│   ├── src/
+│   │   ├── main.ts
+│   │   ├── user.module.ts
+│   │   ├── user.service.ts
+│   │   ├── user.entity.ts
+│   │   └── ormconfig.ts
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── Dockerfile
+│
+├── admin-service/
+│   ├── src/
+│   │   ├── main.ts
+│   │   ├── admin.module.ts
+│   │   ├── admin.service.ts
+│   │   ├── admin.entity.ts
+│   │   └── ormconfig.ts
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── Dockerfile
+│
+├── client-app/
+│   ├── src/
+│   │   └── main.ts
+│   ├── package.json
+│   ├── tsconfig.json
+│   └── Dockerfile
+│
+├── docker-compose.yml
+└── README.md
